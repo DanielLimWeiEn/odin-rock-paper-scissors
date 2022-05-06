@@ -89,3 +89,30 @@ function playRound(playerSelection, computerSelection) {
 
     return firstHalf + secondHalf;
 }
+
+/**
+ * Simulates playing 5 rounds of the game.
+ * 
+ * @returns Returns a result depending on who won.
+ */
+function game() {
+    score = 0;
+
+    for (let i = 0; i < 5; i++) {
+        let playerSelection = prompt("Enter your choice: ");
+        let computerSelection = computerPlay();
+        let result = playRound(playerSelection, computerSelection);
+        let status = result.split(" ")[1];
+        score = status === "Lose"
+            ? score - 1
+            : status === "Win"
+            ? score + 1
+            : score;
+    }
+
+    return score < 0
+        ? "You Lost!"
+        : score > 0
+        ? "You Win!"
+        : "You Tied!";
+}
