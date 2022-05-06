@@ -48,15 +48,44 @@ function computerPlay() {
     }
 }
 
+/**
+ * Function to take player selection and computer selection to
+ * play a round.
+ * 
+ * @param {*} playerSelection The Player's Choice.
+ * @param {*} computerSelection The Computer's Choice.
+ * @returns A declaration of the winner of the round.
+ */
 function playRound(playerSelection, computerSelection) {
-    
+    playerSelection = standardizeInput(playerSelection);
     let status;
     
-    if (playerSelection === "rock") {
-        
-    } else if (playerSelection === "paper") {
-
-    } else {
-
+    if (playerSelection === ROCK) {
+        status = computerSelection === ROCK
+            ? "Tied"
+            : computerSelection === PAPER
+            ? "Lose"
+            : "Win";
+    } else if (playerSelection === PAPER) {
+        status = computerSelection === ROCK
+            ? "Win"
+            : computerSelection === PAPER
+            ? "Tied"
+            : "Lose";
+    } else if (playerSelection === SCISSORS) {
+        status = computerSelection === ROCK
+            ? "Lose"
+            : computerSelection === PAPER
+            ? "Win"
+            : "Tied";
     }
+
+    let firstHalf = `You ${status}! `;
+    let secondHalf = status === "Win"
+        ? `${playerSelection} beats ${computerSelection}`
+        : status === "Lose"
+        ? `${computerSelection} beats ${playerSelection}`
+        : `You both selected the ${playerSelection}`;
+
+    return firstHalf + secondHalf;
 }
