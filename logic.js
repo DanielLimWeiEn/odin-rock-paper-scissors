@@ -102,10 +102,11 @@ function game() {
         let playerSelection = prompt("Enter your choice: ");
         let computerSelection = computerPlay();
         let result = playRound(playerSelection, computerSelection);
+        console.log(result);
         let status = result.split(" ")[1];
-        score = status === "Lose"
+        score = status === "Lose!"
             ? score - 1
-            : status === "Win"
+            : status === "Win!"
             ? score + 1
             : score;
     }
