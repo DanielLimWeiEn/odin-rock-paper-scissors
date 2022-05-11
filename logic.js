@@ -134,5 +134,20 @@ btnList.forEach(btn => {
         outcome = document.createElement('h1');
         outcome.textContent = playRound(sign, computerPlay());
         result.replaceChildren(outcome);
+
+        // Update the score board.
+        let board = document.createElement('h1');
+        board.textContent = `Player: ${scoreboard['player']} vs Computer: ${scoreboard['computer']}`;
+        score.replaceChildren(board);
+
+        // Check for winners and maintain state until reset.
+        if (scoreboard['player'] >= 5 || scoreboard['computer'] >= 5) {
+            outcome = document.createElement('h1');
+            outcome.textContent = scoreboard['player'] >= 5
+                ? "You Win!"
+                : "You Lose!"
+            result.replaceChildren(outcome);
+            score.replaceChildren();
+        }
     });
 });
