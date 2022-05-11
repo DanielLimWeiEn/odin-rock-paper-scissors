@@ -117,3 +117,22 @@ function game() {
         ? "You Win!"
         : "You Tied!";
 }
+
+/**
+ * DOM Manipulation.
+ */
+const rockBtn = document.querySelector("#Rock");
+const paperBtn = document.querySelector("#Paper");
+const scissorsBtn = document.querySelector("#Scissors");
+
+rockBtn.addEventListener('click', event => {
+    playRound(ROCK, computerPlay());
+});
+
+paperBtn.addEventListener('click', event => {
+    playRound(PAPER, computerPlay());
+});
+
+scissorsBtn.addEventListener('click', event => {
+    playRound(SCISSORS, computerPlay());
+});
