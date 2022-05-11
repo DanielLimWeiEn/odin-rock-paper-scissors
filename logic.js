@@ -123,6 +123,7 @@ function playRound(playerSelection, computerSelection) {
  * DOM Manipulation.
  */
 const btnList = document.querySelectorAll("div button");
+const reset = document.querySelector("#reset");
 const result = document.querySelector(".result");
 const score = document.querySelector(".score");
 let outcome;
@@ -150,4 +151,12 @@ btnList.forEach(btn => {
             score.replaceChildren();
         }
     });
+});
+
+reset.addEventListener('click', event => {
+    resetScoreboard();
+    let resetMessage = document.createElement("h1");
+    resetMessage.textContent = "Resetting Scores...";
+    result.replaceChildren(resetMessage);
+    score.replaceChildren();
 });
