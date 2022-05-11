@@ -124,15 +124,23 @@ function game() {
 const rockBtn = document.querySelector("#Rock");
 const paperBtn = document.querySelector("#Paper");
 const scissorsBtn = document.querySelector("#Scissors");
+let outcome;
+const result = document.querySelector(".result");
 
 rockBtn.addEventListener('click', event => {
-    playRound(ROCK, computerPlay());
+    outcome = document.createElement('h1');
+    outcome.textContent = playRound(ROCK, computerPlay());
+    result.appendChild(outcome);
 });
 
 paperBtn.addEventListener('click', event => {
-    playRound(PAPER, computerPlay());
+    outcome = document.createElement('h1');
+    outcome.textContent = playRound(PAPER, computerPlay());
+    result.appendChild(outcome);
 });
 
 scissorsBtn.addEventListener('click', event => {
-    playRound(SCISSORS, computerPlay());
+    outcome = document.createElement('h1');
+    outcome.textContent = playRound(SCISSORS, computerPlay());
+    result.appendChild(outcome);
 });
