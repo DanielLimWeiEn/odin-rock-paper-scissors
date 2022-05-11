@@ -121,26 +121,15 @@ function game() {
 /**
  * DOM Manipulation.
  */
-const rockBtn = document.querySelector("#Rock");
-const paperBtn = document.querySelector("#Paper");
-const scissorsBtn = document.querySelector("#Scissors");
-let outcome;
+const btnList = document.querySelectorAll("button");
 const result = document.querySelector(".result");
+let outcome;
 
-rockBtn.addEventListener('click', event => {
-    outcome = document.createElement('h1');
-    outcome.textContent = playRound(ROCK, computerPlay());
-    result.appendChild(outcome);
-});
-
-paperBtn.addEventListener('click', event => {
-    outcome = document.createElement('h1');
-    outcome.textContent = playRound(PAPER, computerPlay());
-    result.appendChild(outcome);
-});
-
-scissorsBtn.addEventListener('click', event => {
-    outcome = document.createElement('h1');
-    outcome.textContent = playRound(SCISSORS, computerPlay());
-    result.appendChild(outcome);
+btnList.forEach(btn => {
+    const sign = btn.id;
+    btn.addEventListener('click', event => {
+        outcome = document.createElement('h1');
+        outcome.textContent = playRound(sign, computerPlay());
+        result.replaceChildren(outcome);
+    });
 });
