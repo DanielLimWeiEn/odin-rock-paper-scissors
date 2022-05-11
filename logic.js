@@ -91,45 +91,30 @@ function playRound(playerSelection, computerSelection) {
 }
 
 /**
- * Simulates playing 5 rounds of the game.
- * 
- * @returns Returns a result depending on who won.
- */
-function game() {
-    score = 0;
-
-    for (let i = 0; i < 5; i++) {
-        let playerSelection = prompt("Enter your choice: ");
-        let computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-        console.log(result);
-        let status = result.split(" ")[1];
-        score = status === "Lose!"
-            ? score - 1
-            : status === "Win!"
-            ? score + 1
-            : score;
-    }
-
-    return score < 0
-        ? "You Lost!"
-        : score > 0
-        ? "You Win!"
-        : "You Tied!";
-}
-
-/**
  * DOM Manipulation.
  */
 const btnList = document.querySelectorAll("button");
 const result = document.querySelector(".result");
+const score = document.querySelector(".score");
 let outcome;
 
 btnList.forEach(btn => {
     const sign = btn.id;
     btn.addEventListener('click', event => {
+        // Update the outcome for the round.
         outcome = document.createElement('h1');
         outcome.textContent = playRound(sign, computerPlay());
         result.replaceChildren(outcome);
+
+        // Updates the score board
+        let status = outcome.textContent.split(" ")[1];
+        let condition = document.createElement('div');
+        condition.textContent = status === "Win!"
+            ? 1
+            : status === "Lose!"
+            ? -1
+            : 0;
+        score.appendChild(condition);
+
     });
 });
