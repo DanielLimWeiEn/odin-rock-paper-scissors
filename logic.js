@@ -4,6 +4,30 @@
 const ROCK = "Rock";
 const PAPER = "Paper";
 const SCISSORS = "Scissors";
+let scoreboard = {
+    'player': 0,
+    'computer': 0
+};
+
+/**
+ * Update scoreboard method to update the global scoreboard.
+ * 
+ * @param {*} player Either 'player' or 'computer'
+ * @param {*} score The new score.
+ */
+function updateScoreboard(player, score) {
+    scoreboard[player] = score;
+}
+
+/**
+ * Method to rest the scoreboard.
+ */
+function resetScoreboard() {
+    scoreboard = {
+        'player': 0,
+        'computer': 0
+    };
+}
 
 /**
  * Gets a random integer between min (inclusive) and max (exclusive).
@@ -81,19 +105,24 @@ function playRound(playerSelection, computerSelection) {
     }
 
     let firstHalf = `You ${status}! `;
-    let secondHalf = status === "Win"
-        ? `${playerSelection} beats ${computerSelection}`
-        : status === "Lose"
-        ? `${computerSelection} beats ${playerSelection}`
-        : `You both selected the ${playerSelection}`;
+    let secondHalf;
 
+    if (status === "Win") {
+        secondHalf = `${playerSelection} beats ${computerSelection}`;
+        updateScoreboard("player", scoreboard["player"] + 1);
+    } else if (status === "Lose") {
+        secondHalf = `${computerSelection} beats ${playerSelection}`;
+        updateScoreboard("computer", scoreboard["computer"] + 1);
+    } else {
+        secondHalf = `You both selected the ${playerSelection}`;
+    }
     return firstHalf + secondHalf;
 }
 
 /**
  * DOM Manipulation.
  */
-const btnList = document.querySelectorAll("button");
+const btnList = document.querySelectorAll("div button");
 const result = document.querySelector(".result");
 const score = document.querySelector(".score");
 let outcome;
@@ -105,16 +134,5 @@ btnList.forEach(btn => {
         outcome = document.createElement('h1');
         outcome.textContent = playRound(sign, computerPlay());
         result.replaceChildren(outcome);
-
-        // Updates the score board
-        let status = outcome.textContent.split(" ")[1];
-        let condition = document.createElement('div');
-        condition.textContent = status === "Win!"
-            ? 1
-            : status === "Lose!"
-            ? -1
-            : 0;
-        score.appendChild(condition);
-
     });
 });
